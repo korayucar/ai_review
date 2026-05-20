@@ -1,0 +1,10 @@
+{
+  "name": "codereview-skills",
+  "version": "0.1.0",
+  "description": "Inline @AI code-review workflow. Drop @AI in any comment; agent answers in place. Companion skill cleans the trail.",
+  "author": {
+    "name": "<your-name>",
+    "url": "https://github.com/<you>"
+  },
+  "homepage": "https://github.com/<you>/codereview-skills"
+}
