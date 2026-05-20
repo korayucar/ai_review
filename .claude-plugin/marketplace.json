@@ -1,0 +1,17 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "ai_review",
+  "description": "Inline @AI code-review workflow for Claude Code. Drop @AI in any comment; agent answers in place. Companion skill cleans the trail when done.",
+  "owner": {
+    "name": "Koray Ucar",
+    "url": "https://github.com/korayucar"
+  },
+  "plugins": [
+    {
+      "name": "codereview-skills",
+      "description": "Two companion skills: codereview-inline (process @AI comments) and codereview-clean (sweep the trail).",
+      "source": "./",
+      "category": "code-review"
+    }
+  ]
+}
