@@ -35,6 +35,8 @@ The skills only read git state. They never stage, commit, or push. You commit wh
 | [`codereview-inline`](skills/codereview-inline/SKILL.md) | Scans uncommitted changes, answers every open `@AI` in place. |
 | [`codereview-clean`](skills/codereview-clean/SKILL.md) | Removes closed `@SEEN @AI` blocks and adjacent `@AI-reply:` comments. Optional `--all` / `--replies-only` flags. |
 
+> **Heads up:** `codereview-clean` is untested and rarely used in practice — run it at your own risk. Commit (or stash) before invoking so you can `git diff` / revert if it removes more than you wanted.
+
 ## Marker reference
 
 | Token | Meaning |
