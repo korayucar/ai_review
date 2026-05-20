@@ -31,15 +31,15 @@ Tokens are case-sensitive and recognized **only inside comments**. Never inside 
 | JSX/TSX body (inside JSX expressions) | (none) | `{/* ... */}` |
 | SQL, Haskell, Ada, Lua | `--` | `/* ... */` (SQL only) |
 | Lisp, Clojure, Scheme, Common Lisp | `;;` | (none) |
-| Markdown (Obsidian-flavored) | (none) | `%% ... %%` |
+| Markdown, MDX | bare prose line (no marker needed); also `<!-- ... -->` or `%% ... %%` if the user wants the trail hidden in rendered output | same |
 
-Reply comment uses the same comment syntax as the user's marker. For block-only languages (HTML, JSX), both marker and reply are block comments. For line-only languages, both occupy their own line.
+Reply comment uses the same comment syntax as the user's marker. For block-only languages (HTML, JSX), both marker and reply are block comments. For line-only languages, both occupy their own line. For Markdown/MDX, the reply matches the user's form: if the user wrote a bare `@AI` line in prose, reply as a bare `@AI-reply:` line; if the user wrote `%% @AI ... %%` or `<!-- @AI ... -->`, wrap the reply the same way.
 
 ## Processing flow
 
 1. `git status --porcelain` → list of changed files (staged + unstaged combined). Skip binary files, lockfiles, generated files, vendored paths, and anything in `.gitignore`-style locations.
 2. For each changed file, search the entire file (not just the diff) for `@AI` word-boundary hits. The file-level "is changed" gate is enough; within a changed file every open `@AI` is fair game.
-3. For each hit, confirm the token sits inside a comment for that filetype. If inside a string, skip.
+3. For each hit, confirm the token sits inside a comment for that filetype. If inside a string, skip. **Exception: Markdown/MDX.** Markdown is prose, not code — `@AI` in plain prose is valid and processed normally. Still skip hits inside fenced code blocks (```` ``` ```` or `    ` indented), inline backticks, link targets, and HTML attribute values.
 4. Classify the comment containing the hit:
    - Contains `@AI` and NOT `@SEEN` → **open**.
    - Contains both `@SEEN` and `@AI` → **closed**, skip.
@@ -112,7 +112,24 @@ After `go`:
 <div class="toast"></div>
 ```
 
-Markdown (Obsidian):
+Markdown — bare prose (default for `.md`/`.mdx`):
+
+```markdown
+The retry budget is 3 attempts with exponential backoff.
+
+@AI is 3 enough for the new ingestion pipeline?
+```
+
+After `go`:
+
+```markdown
+The retry budget is 3 attempts with exponential backoff.
+
+@SEEN @AI is 3 enough for the new ingestion pipeline?
+@AI-reply: probably not — ingestion p99 latency exceeds the 3-attempt window during peak. Bump to 5 or add jitter.
+```
+
+Markdown — hidden trail (Obsidian `%%` or HTML `<!-- -->`, user's choice):
 
 ```markdown
 %% @AI is this section still accurate? %%
