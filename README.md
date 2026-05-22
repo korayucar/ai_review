@@ -26,16 +26,17 @@ Lightweight inline code-review for Claude Code. Drop `@AI` in any comment, say `
 3. Follow up by adding another `@AI` below — thread continuity is preserved.
 4. When done: `/codereview-clean .` sweeps the trail.
 
-The skills only read git state. They never stage, commit, or push. You commit when you want.
+`codereview-inline` and `codereview-clean` only read git state — they never stage, commit, or push. `commit-reply-review` is the deliberate exception: it creates exactly one snapshot commit (after preflight checks) so the AI's reply edits stay isolated from your work. Every other commit is still yours.
 
-## Two skills
+## Skills
 
 | Skill | Purpose |
 |---|---|
 | [`codereview-inline`](skills/codereview-inline/SKILL.md) | Scans uncommitted changes, answers every open `@AI` in place. |
 | [`codereview-clean`](skills/codereview-clean/SKILL.md) | Removes closed `@SEEN @AI` blocks and adjacent `@AI-reply:` comments. Optional `--all` / `--replies-only` flags. |
+| [`commit-reply-review`](skills/commit-reply-review/SKILL.md) | Niche: snapshots the dirty tree as a WIP commit, then runs the inline reply pass so the AI's edits land as their own uncommitted change. For users who want git history to cleanly separate "what I wrote" from "what the AI added." |
 
-> **Heads up:** `codereview-clean` is untested and rarely used in practice — run it at your own risk. Commit (or stash) before invoking so you can `git diff` / revert if it removes more than you wanted.
+> **Heads up:** `codereview-clean` and `commit-reply-review` are both lightly tested. Commit (or stash) before invoking so you can `git diff` / revert if anything surprises you. `commit-reply-review` will refuse to run if it detects a no-auto-commit directive in your repo (CLAUDE.md / AGENTS.md / settings hooks) unless you reconfirm.
 
 ## Marker reference
 
