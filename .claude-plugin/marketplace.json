@@ -9,7 +9,7 @@
   "plugins": [
     {
       "name": "codereview-skills",
-      "description": "Two companion skills: codereview-inline (process @AI comments) and codereview-clean (sweep the trail).",
+      "description": "Three companion skills: codereview-inline (process @AI comments), codereview-clean (sweep the trail), and commit-reply-review (snapshot dirty tree before the reply pass).",
       "source": "./",
       "category": "code-review"
     }
