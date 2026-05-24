@@ -9,7 +9,7 @@
   "plugins": [
     {
       "name": "codereview-skills",
-      "description": "Three companion skills: codereview-inline (process @AI comments), codereview-clean (sweep the trail), and commit-reply-review (snapshot dirty tree before the reply pass).",
+      "description": "Five companion skills: codereview-inline (process @AI comments), codereview-clean (sweep the trail), commit-reply-review (snapshot dirty tree before the reply pass), diffity-resolve-traced and diffity-resolve-tree-traced (wrap nilbuild/diffity resolution flows and leave an @SEEN @AI:/@AI-reply: trail at every edit site).",
       "source": "./",
       "category": "code-review"
     }

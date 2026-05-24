@@ -36,6 +36,15 @@ Lightweight inline code-review for Claude Code. Drop `@AI` in any comment, say `
 | [`codereview-clean`](skills/codereview-clean/SKILL.md) | Removes closed `@SEEN @AI` blocks and adjacent `@AI-reply:` comments. Optional `--all` / `--replies-only` flags. |
 | [`commit-reply-review`](skills/commit-reply-review/SKILL.md) | Niche: snapshots the dirty tree as a WIP commit, then runs the inline reply pass so the AI's edits land as their own uncommitted change. For users who want git history to cleanly separate "what I wrote" from "what the AI added." |
 
+### Diffity bridges
+
+Wrappers around the [`nilbuild/diffity`](https://github.com/nilbuild/diffity) skill pack that augment its browser-driven resolution flows with the same `@SEEN @AI:` / `@AI-reply:` inline trail this plugin uses elsewhere — so `codereview-clean` can sweep diffity-driven reviews with no special-casing. Install diffity first: `npx skills add nilbuild/diffity`.
+
+| Skill | Purpose |
+|---|---|
+| [`diffity-resolve-traced`](skills/diffity-resolve-traced/SKILL.md) | Delegates to upstream `diffity-resolve` (diff-viewer resolution), then leaves an `@SEEN @AI:` / `@AI-reply:` trail at every edit site. |
+| [`diffity-resolve-tree-traced`](skills/diffity-resolve-tree-traced/SKILL.md) | Delegates to upstream `diffity-resolve-tree` (tree-browser resolution), then leaves the same trail at every edit site. |
+
 > **Heads up:** `codereview-clean` and `commit-reply-review` are both lightly tested. Commit (or stash) before invoking so you can `git diff` / revert if anything surprises you. `commit-reply-review` will refuse to run if it detects a no-auto-commit directive in your repo (CLAUDE.md / AGENTS.md / settings hooks) unless you reconfirm.
 
 ## Marker reference

@@ -1,7 +1,7 @@
 {
   "name": "codereview-skills",
-  "version": "0.2.0",
-  "description": "Inline @AI code-review workflow. Drop @AI in any comment; agent answers in place. Companion skills clean the trail and snapshot-then-reply.",
+  "version": "0.3.0",
+  "description": "Inline @AI code-review workflow. Drop @AI in any comment; agent answers in place. Companion skills clean the trail, snapshot-then-reply, and bridge to diffity browser reviews.",
   "author": {
     "name": "<your-name>",
     "url": "https://github.com/<you>"
