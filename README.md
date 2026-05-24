@@ -44,6 +44,7 @@ Wrappers around the [`nilbuild/diffity`](https://github.com/nilbuild/diffity) sk
 |---|---|
 | [`diffity-resolve-traced`](skills/diffity-resolve-traced/SKILL.md) | Delegates to upstream `diffity-resolve` (diff-viewer resolution), then leaves an `@SEEN @AI:` / `@AI-reply:` trail at every edit site. |
 | [`diffity-resolve-tree-traced`](skills/diffity-resolve-tree-traced/SKILL.md) | Delegates to upstream `diffity-resolve-tree` (tree-browser resolution), then leaves the same trail at every edit site. |
+| [`diffity-commit-resolve-traced`](skills/diffity-commit-resolve-traced/SKILL.md) | Niche: snapshots the dirty tree as a WIP commit, then runs `diffity-resolve-traced` so the AI's edits + inline trail land as their own uncommitted change. Diffity-flow counterpart to `commit-reply-review`. |
 
 > **Heads up:** `codereview-clean` and `commit-reply-review` are both lightly tested. Commit (or stash) before invoking so you can `git diff` / revert if anything surprises you. `commit-reply-review` will refuse to run if it detects a no-auto-commit directive in your repo (CLAUDE.md / AGENTS.md / settings hooks) unless you reconfirm.
 
